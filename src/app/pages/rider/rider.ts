@@ -8,37 +8,8 @@ const norm = (s: string) => { const m = s.trim().toUpperCase().match(/^(?:JOB)?[
 @Component({
   selector: 'app-rider',
   standalone: true,
-  template: `
-    <div class="phone">
-      <h2>📱 ใบงานไรเดอร์</h2>
-      <input class="code" placeholder="กรอกเลขใบงาน เช่น JOB-01" [value]="code()" (input)="code.set(v($event))">
-      <div class="chips">
-        @for (j of store.jobs(); track j.code) { <button class="chip" [class.on]="j.code === key()" (click)="code.set(j.code)">{{ j.code }}</button> }
-      </div>
-      @if (job(); as j) {
-        <div class="kpis two">
-          <div class="kpi"><span>หยิบข้าวกล่อง</span><b>{{ j.boxes }} กล่อง</b></div>
-          <div class="kpi"><span>จำนวนจุดส่ง</span><b>{{ j.stops.length }} จุด</b></div>
-        </div>
-        <ol class="stops">
-          @for (s of j.stops; track $index) {
-            <li>
-              <a class="num" [href]="stopUrl(s)" target="_blank" rel="noopener" [attr.aria-label]="'เปิดแผนที่นำทางไปจุดที่ ' + ($index + 1)">{{ $index + 1 }}</a>
-              <div>
-                <b>จุดที่ {{ $index + 1 }}: บ้านคุณ {{ first(s.name) }}</b>
-                <p>{{ s.qty }} กล่อง · โทร {{ s.phone || '-' }}</p>
-                <p>ถึงโดยประมาณ {{ s.eta }} น.</p>
-              </div>
-            </li>
-          }
-        </ol>
-        <a class="btn block" [href]="url(j)" target="_blank" rel="noopener">🧭 เปิดแผนที่นำทาง</a>
-      } @else if (!store.jobs().length) {
-        <p class="muted">ยังไม่มีใบงาน ให้เจ้าของร้านไปหน้า "จัดเส้นทาง" ก่อน</p>
-      } @else {
-        <p class="muted">ไม่พบใบงานเลขนี้ ลองเลือกจากปุ่มด้านบน</p>
-      }
-    </div>`,
+  templateUrl: './rider.html',
+  styleUrl: './rider.css',
 })
 export class Rider {
   store = inject(Store);
