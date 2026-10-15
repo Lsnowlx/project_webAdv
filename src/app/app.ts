@@ -1,12 +1,23 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
-  templateUrl: './app.html',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  template: `
+    <div class="wrap">
+      <header class="top">
+        <h1>🍱 ข้าวกล่องส่งด่วนมื้อเที่ยง</h1>
+        <p>ระบบจัดเส้นทางและแบ่งงานไรเดอร์อัจฉริยะ · ต้องถึงมือลูกค้าก่อน 12:30 น.</p>
+      </header>
+      <nav class="tabs">
+        <a routerLink="/customer" routerLinkActive="on">👥 1. ข้อมูลลูกค้า</a>
+        <a routerLink="/order" routerLinkActive="on">🧾 2. ออเดอร์</a>
+        <a routerLink="/route" routerLinkActive="on">🗺️ 3. จัดเส้นทาง</a>
+        <a routerLink="/rider" routerLinkActive="on">📱 4. ไรเดอร์ (มือถือ)</a>
+      </nav>
+      <router-outlet />
+    </div>`,
 })
-export class App {
-  protected readonly title = signal('lunch-front');
-}
+export class App {}
